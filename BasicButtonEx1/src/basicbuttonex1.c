@@ -1,5 +1,4 @@
 #include "basicbuttonex1.h"
-#include <string.h>
 
 typedef struct appdata {
 	Evas_Object *win;

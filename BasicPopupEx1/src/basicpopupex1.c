@@ -1,9 +1,13 @@
-#include "basicradioex1.h"
+#include "basicpopupex1.h"
 
 typedef struct appdata {
 	Evas_Object *win;
 	Evas_Object *conform;
 	Evas_Object *label;
+	Evas_Object *box;
+	Evas_Object *popup;
+	Evas_Object *entry;
+	int popupNum;
 } appdata_s;
 
 static void win_delete_request_cb(void *data, Evas_Object *obj,
@@ -26,47 +30,57 @@ static void my_box_pack(Evas_Object *box, Evas_Object *child, double h_weight,
 	elm_box_pack_end(box, child);
 }
 
-static void radio_animal_cb(void *data, Evas_Object *obj, void *event_info) {
+static void popup_timeout(void *data, Evas_Object *obj, void *event_info) {
 	appdata_s *ad = data;
-	int value = 0;
-	value = elm_radio_value_get(obj);
-	char buf[64];
-	sprintf(buf, "Animal Radio : %d", value); // 1st Radio Group
-
-	switch (value) {
-	case 1:
-		sprintf(buf, "%s %s ", buf, "Cat");
-		break;
-	case 2:
-		sprintf(buf, "%s %s ", buf, "Dog");
-		break;
-	case 3:
-		sprintf(buf, "%s %s ", buf, "Hamster");
-		break;
-	}
-
-	elm_object_text_set(ad->label, buf);
+	evas_object_del(obj);
+	elm_object_text_set(ad->label, "Time out");
 }
 
-static void radio_dessert_cb(void *data, Evas_Object *obj, void *event_info) {
+static void popup_block_clicked(void *data, Evas_Object *obj, void *event_info) {
 	appdata_s *ad = data;
-	int value = 0;
-	value = elm_radio_value_get(obj);
-	char buf[64];
-	sprintf(buf, "Dessert Radio : %d", value);
-	switch (value) {
-	case 1:
-		sprintf(buf, "%s %s ", buf, "Cookie");
-		break;
-	case 2:
-		sprintf(buf, "%s %s ", buf, "Icecream");
-		break;
-	case 3:
-		sprintf(buf, "%s %s ", buf, "Juice");
-		break;
-	}
+	evas_object_del(obj);
+	elm_object_text_set(ad->label, "Block Clicked");
+}
 
-	elm_object_text_set(ad->label, buf);
+static void make_popup_text(void *data, Evas_Object *obj, void *event_info) {
+
+	appdata_s *ad = data;
+	ad->popup = elm_popup_add(ad->win);
+	elm_popup_align_set(ad->popup, ELM_NOTIFY_ALIGN_FILL, 0.5);
+//	evas_object_size_hint_weight_set(ad->popup, EVAS_HINT_EXPAND,
+//	EVAS_HINT_EXPAND);
+	evas_object_size_hint_weight_set(ad->popup, 200, 40);
+	elm_object_text_set(ad->popup, "Text popup - timeout of 3 sec is set.");
+	elm_popup_timeout_set(ad->popup, 3.0);
+	evas_object_smart_callback_add(ad->popup, "timeout", popup_timeout, ad);
+	evas_object_smart_callback_add(ad->popup, "block,clicked",
+			popup_block_clicked, ad);
+	evas_object_show(ad->popup);
+	ad->popupNum = 1;
+}
+static void make_popup_text_1button(void *data, Evas_Object *obj,
+		void *event_info) {
+	Evas_Object *btn;
+	appdata_s *ad = data;
+	ad->popup = elm_popup_add(ad->grid);
+	elm_popup_align_set(ad->popup, ELM_NOTIFY_ALIGN_FILL, 1.0);
+	evas_object_smart_callback_add(ad->popup, "block,clicked",
+			popup_block_clicked, ad);
+	evas_object_size_hint_weight_set(ad->popup, EVAS_HINT_EXPAND,
+			EVAS_HINT_EXPAND);
+	elm_object_text_set(ad->popup, "1Button popup");
+	btn = elm_button_add(ad->popup);
+	elm_object_text_set(btn, "OK");
+	elm_object_part_content_set(ad->popup, "button1", btn);
+	evas_object_smart_callback_add(btn, "clicked", popup_btn1_clicked, ad);
+	evas_object_show(ad->popup);
+	ad->popupNum = 2;
+}
+static void make_popup_text_3button(void *data, Evas_Object *obj,
+		void *event_info) {
+}
+static void make_popup_input_text(void *data, Evas_Object *obj,
+		void *event_info) {
 }
 
 static void create_base_gui(appdata_s *ad) {
@@ -83,8 +97,7 @@ static void create_base_gui(appdata_s *ad) {
 	}
 
 	evas_object_smart_callback_add(ad->win, "delete,request",
-			win_delete_request_cb,
-			NULL);
+			win_delete_request_cb, NULL);
 	eext_object_event_callback_add(ad->win, EEXT_CALLBACK_BACK, win_back_cb,
 			ad);
 
@@ -100,63 +113,38 @@ static void create_base_gui(appdata_s *ad) {
 	elm_win_resize_object_add(ad->win, ad->conform);
 	evas_object_show(ad->conform);
 
-	Evas_Object *box = elm_box_add(ad->win);
-	evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	elm_object_content_set(ad->conform, box);
-	evas_object_show(box);
+	ad->box = elm_box_add(ad->win);
+	evas_object_size_hint_weight_set(ad->box, EVAS_HINT_EXPAND,
+	EVAS_HINT_EXPAND);
+	elm_object_content_set(ad->conform, ad->box);
+	evas_object_show(ad->box);
 
 	{
 		ad->label = elm_label_add(ad->conform);
-		elm_object_text_set(ad->label, "Select Radio");
-		my_box_pack(box, ad->label, 1.0, 0.0, -1.0, 0.5);
+		elm_object_text_set(ad->label, "Please click a button below");
+		my_box_pack(ad->box, ad->label, 1.0, 0.0, 0.5, 0.0);
 
-		Evas_Object *radio, *radio_group;
+		Evas_Object *btn = elm_button_add(ad->conform);
+		elm_object_text_set(btn, "Popup Text");
+		evas_object_smart_callback_add(btn, "clicked", make_popup_text, ad);
+		my_box_pack(ad->box, btn, 1.0, 0.0, -1.0, -1.0);
+		btn = elm_button_add(ad->conform);
+		elm_object_text_set(btn, "Popup 1 Button");
+		evas_object_smart_callback_add(btn, "clicked", make_popup_text_1button,
+				ad);
+		my_box_pack(ad->box, btn, 1.0, 0.0, -1.0, -1.0);
+		btn = elm_button_add(ad->conform);
+		elm_object_text_set(btn, "Popup 3 Buttons");
+		evas_object_smart_callback_add(btn, "clicked", make_popup_text_3button,
+				ad);
+		my_box_pack(ad->box, btn, 1.0, 0.0, -1.0, -1.0);
+		btn = elm_button_add(ad->conform);
+		elm_object_text_set(btn, "Popup Input Text");
+		evas_object_smart_callback_add(btn, "clicked", make_popup_input_text,
+				ad);
+		my_box_pack(ad->box, btn, 1.0, 1.0, -1.0, 0.0);
 
-		radio = elm_radio_add(ad->conform);
-		elm_object_text_set(radio, "Cat");
-		elm_radio_state_value_set(radio, 1);
-		radio_group = radio;
-		evas_object_smart_callback_add(radio, "changed", radio_animal_cb, ad);
-		my_box_pack(box, radio, 1.0, 1.0, -1.0, -1.0);
-
-		radio = elm_radio_add(ad->conform);
-		elm_object_text_set(radio, "Dog");
-		elm_radio_state_value_set(radio, 2);
-		evas_object_smart_callback_add(radio, "changed", radio_animal_cb, ad);
-		elm_radio_group_add(radio, radio_group);
-		my_box_pack(box, radio, 1.0, 1.0, -1.0, -1.0);
-
-		radio = elm_radio_add(ad->conform);
-		elm_object_text_set(radio, "Hamster");
-		elm_radio_state_value_set(radio, 3);
-		evas_object_smart_callback_add(radio, "changed", radio_animal_cb, ad);
-		elm_radio_group_add(radio, radio_group);
-		my_box_pack(box, radio, 1.0, 1.0, -1.0, -1.0);
-
-		radio = elm_radio_add(ad->conform);
-		elm_object_text_set(radio, "Cookie");
-		elm_radio_state_value_set(radio, 1);
-		radio_group = radio;
-		evas_object_smart_callback_add(radio, "changed", radio_dessert_cb, ad);
-		my_box_pack(box, radio, 1.0, 1.0, -1.0, -1.0);
-
-		radio = elm_radio_add(ad->conform);
-		elm_object_text_set(radio, "Icecream");
-		elm_radio_state_value_set(radio, 2);
-		evas_object_smart_callback_add(radio, "changed", radio_dessert_cb, ad);
-		elm_radio_group_add(radio, radio_group);
-		my_box_pack(box, radio, 1.0, 1.0, -1.0, -1.0);
-
-		radio = elm_radio_add(ad->conform);
-		elm_object_text_set(radio, "Juice");
-		elm_radio_state_value_set(radio, 3);
-		evas_object_smart_callback_add(radio, "changed", radio_dessert_cb, ad);
-		elm_radio_group_add(radio, radio_group);
-		my_box_pack(box, radio, 1.0, 1.0, -1.0, -1.0);
-
-		elm_radio_value_set(radio_group, 1);
 	}
-
 	evas_object_show(ad->win);
 }
 
