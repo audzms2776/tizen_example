@@ -1,0 +1,27 @@
+# ninja log v5
+0	934	0	src/basicbuttonex1.o	f0712c6a6722933
+939	1431	0	basicbuttonex1	4a3a3f975f42eae9
+3	971	0	src/basicbuttonex1.o	778aca46fdfe6958
+975	1441	0	basicbuttonex1	ad4c111ed58d70b6
+4	951	0	src/basicbuttonex1.o	778aca46fdfe6958
+951	1367	0	basicbuttonex1	ad4c111ed58d70b6
+6	2378	0	src/basicbuttonex1.o	778aca46fdfe6958
+2383	6800	0	basicbuttonex1	ad4c111ed58d70b6
+4	1002	0	src/basicbuttonex1.o	778aca46fdfe6958
+1002	1520	0	basicbuttonex1	ad4c111ed58d70b6
+3	945	0	src/basicbuttonex1.o	778aca46fdfe6958
+946	1538	0	basicbuttonex1	ad4c111ed58d70b6
+4	817	0	src/basicbuttonex1.o	778aca46fdfe6958
+818	1217	0	basicbuttonex1	ad4c111ed58d70b6
+3	959	0	src/basicbuttonex1.o	778aca46fdfe6958
+960	1631	0	basicbuttonex1	ad4c111ed58d70b6
+11	2302	0	res/edje/custom_button.edj	fc8f12e8a9fd8e12
+5	925	0	src/basicbuttonex1.o	778aca46fdfe6958
+925	1441	0	basicbuttonex1	ad4c111ed58d70b6
+3	1105	0	src/basicbuttonex1.o	778aca46fdfe6958
+1106	1531	0	basicbuttonex1	ad4c111ed58d70b6
+9	934	0	src/basicbuttonex1.o	778aca46fdfe6958
+935	1405	0	basicbuttonex1	ad4c111ed58d70b6
+4	915	0	src/basicbuttonex1.o	778aca46fdfe6958
+916	1416	0	basicbuttonex1	ad4c111ed58d70b6
+7	519	0	basicbuttonex1	ad4c111ed58d70b6

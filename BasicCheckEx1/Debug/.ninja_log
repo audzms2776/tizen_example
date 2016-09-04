@@ -1,0 +1,13 @@
+# ninja log v5
+0	1365	0	src/basiccheckex1.o	289008aabd71d062
+1369	1901	0	org.example.basiccheckex1	71145c85c502f714
+5	1382	0	src/basiccheckex1.o	fecccf35568d5f9
+1387	2037	0	basiccheckex1	9fde8fdd79a80dd3
+6	1734	0	src/basiccheckex1.o	fecccf35568d5f9
+1734	2305	0	basiccheckex1	9fde8fdd79a80dd3
+6	1222	0	src/basiccheckex1.o	fecccf35568d5f9
+1222	1769	0	basiccheckex1	9fde8fdd79a80dd3
+5	1779	0	src/basiccheckex1.o	fecccf35568d5f9
+1779	2275	0	basiccheckex1	9fde8fdd79a80dd3
+3	1254	0	src/basiccheckex1.o	fecccf35568d5f9
+1254	1751	0	basiccheckex1	9fde8fdd79a80dd3

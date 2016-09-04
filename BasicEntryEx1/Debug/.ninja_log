@@ -1,0 +1,17 @@
+# ninja log v5
+1	4223	0	src/basicentryex1.o	439ebf5f6c15afd9
+4240	6184	0	basicentryex1	87e8ca1bfb6ec50e
+6	1087	0	src/basicentryex1.o	439ebf5f6c15afd9
+1087	1538	0	basicentryex1	87e8ca1bfb6ec50e
+6	2032	0	src/basicentryex1.o	f9dbbcdd6b33e4ab
+2037	3295	0	basicentryex1	5a9c654d350ee1d
+5	1159	0	src/basicentryex1.o	f9dbbcdd6b33e4ab
+1159	1652	0	basicentryex1	5a9c654d350ee1d
+6	1473	0	src/basicentryex1.o	f9dbbcdd6b33e4ab
+1473	2345	0	basicentryex1	5a9c654d350ee1d
+5	952	0	src/basicentryex1.o	f9dbbcdd6b33e4ab
+952	1382	0	basicentryex1	5a9c654d350ee1d
+4	1023	0	src/basicentryex1.o	f9dbbcdd6b33e4ab
+1024	1564	0	basicentryex1	5a9c654d350ee1d
+5	934	0	src/basicentryex1.o	f9dbbcdd6b33e4ab
+934	1367	0	basicentryex1	5a9c654d350ee1d

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tizenFile>
+<fileInfo>
+<type>tizen-view</type>
+<version>1</version>
+<desc>Tizen Native UI Builder Project</desc>
+</fileInfo>
+<document>
+<documentInfo>
+<title>test</title>
+<author>noname</author>
+<version>0.1.1</version>
+</documentInfo>
+<documentData>
+<tizen.doc>
+<tizen.view id="view1" indicator="true" location-x="475" location-y="10"/>
+</tizen.doc>
+</documentData>
+</document>
+</tizenFile>

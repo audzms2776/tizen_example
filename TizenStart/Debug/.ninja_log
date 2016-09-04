@@ -1,0 +1,23 @@
+# ninja log v5
+0	3067	0	src/tizenstart.o	62737d4cd2c27efc
+3073	5744	0	org.example.tizenstart	20fea6e36a3d23e
+11	6274	0	src/tizenstart.o	ad49b7533543a623
+6279	9838	0	tizenstart	c968a029d3fc8d6e
+4	1239	0	src/tizenstart.o	ad49b7533543a623
+1239	1685	0	tizenstart	c968a029d3fc8d6e
+4	1011	0	src/tizenstart.o	ad49b7533543a623
+1011	1477	0	tizenstart	c968a029d3fc8d6e
+4	825	0	src/tizenstart.o	ad49b7533543a623
+825	1275	0	tizenstart	c968a029d3fc8d6e
+4	964	0	src/tizenstart.o	ad49b7533543a623
+964	1410	0	tizenstart	c968a029d3fc8d6e
+4	925	0	src/tizenstart.o	ad49b7533543a623
+925	1307	0	tizenstart	c968a029d3fc8d6e
+5	1005	0	src/tizenstart.o	ad49b7533543a623
+1005	1419	0	tizenstart	c968a029d3fc8d6e
+6	911	0	src/tizenstart.o	ad49b7533543a623
+911	1360	0	tizenstart	c968a029d3fc8d6e
+3	902	0	src/tizenstart.o	ad49b7533543a623
+902	1285	0	tizenstart	c968a029d3fc8d6e
+7	1072	0	src/tizenstart.o	ad49b7533543a623
+1072	1464	0	tizenstart	c968a029d3fc8d6e

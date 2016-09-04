@@ -1,0 +1,9 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+
+edctool = edje_cc
+edcflags = -id "D:/All_Program/All_Program/tizen/tizen_study/BasicButtonEx1/edje/images" -id "D:/tizen_ide/tools/enventor/share/enventor/images" -sd "D:/All_Program/All_Program/tizen/tizen_study/BasicButtonEx1/edje/sounds" -sd "D:/tizen_ide/tools/enventor/share/enventor/sounds" -fd "D:/All_Program/All_Program/tizen/tizen_study/BasicButtonEx1/edje/fonts" -fd "D:/tizen_ide/tools/enventor/share/enventor/fonts"
+
+build res/edje/custom_button.edj: build_edc ../res/edje/custom_button.edc 

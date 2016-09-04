@@ -1,0 +1,22 @@
+# ninja log v5
+0	1394	0	src/basicbgex1.o	cdf2f821c4f51c90
+1400	3853	0	basicbgex1	96a270fba3f18c98
+4	4519	0	src/basicbgex1.o	bd50179f696c888c
+4524	6052	0	basicbgex1	9062c9cc63d96ed6
+44	3390	0	basicbgex1	9062c9cc63d96ed6
+6	1972	0	src/basicbgex1.o	bd50179f696c888c
+1973	4724	0	basicbgex1	9062c9cc63d96ed6
+5	1020	0	src/basicbgex1.o	bd50179f696c888c
+1020	1543	0	basicbgex1	9062c9cc63d96ed6
+4	1249	0	src/basicbgex1.o	bd50179f696c888c
+1249	1786	0	basicbgex1	9062c9cc63d96ed6
+4	960	0	src/basicbgex1.o	bd50179f696c888c
+960	1474	0	basicbgex1	9062c9cc63d96ed6
+6	1054	0	src/basicbgex1.o	bd50179f696c888c
+1055	1555	0	basicbgex1	9062c9cc63d96ed6
+10	1157	0	src/basicbgex1.o	bd50179f696c888c
+1157	1724	0	basicbgex1	9062c9cc63d96ed6
+6	1369	0	src/basicbgex1.o	bd50179f696c888c
+1369	1880	0	basicbgex1	9062c9cc63d96ed6
+6	1181	0	src/basicbgex1.o	bd50179f696c888c
+1181	1670	0	basicbgex1	9062c9cc63d96ed6
