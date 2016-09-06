@@ -42,6 +42,40 @@ static void popup_block_clicked(void *data, Evas_Object *obj, void *event_info) 
 	elm_object_text_set(ad->label, "Block Clicked");
 }
 
+static void popup_btn1_clicked(void *data, Evas_Object *obj, void *event_info) {
+	appdata_s *ad = data;
+	const char *input;
+
+	if (ad->popupNum == 4) {
+		const char *input;
+		Eina_Strbuf *str;
+		input = elm_entry_entry_get(ad->entry);
+		str = eina_strbuf_new();
+		eina_strbuf_append_printf(str, "Input: '%s'", input);
+		elm_object_text_set(ad->label, eina_strbuf_string_get(str));
+		eina_strbuf_free(str);
+	} else {
+		elm_object_text_set(ad->label, "Popup 1 Button Clicked");
+	}
+
+
+	evas_object_del(ad->popup);
+	ad->popup = NULL;
+	 ad->entry = NULL;
+}
+
+static void popup_btn2_clicked(void *data, Evas_Object *obj, void *event_info) {
+	appdata_s *ad = data;
+	evas_object_del(ad->popup);
+	elm_object_text_set(ad->label, "Button-2 Clicked");
+}
+
+static void popup_btn3_clicked(void *data, Evas_Object *obj, void *event_info) {
+	appdata_s *ad = data;
+	evas_object_del(ad->popup);
+	elm_object_text_set(ad->label, "Button-3 Clicked");
+}
+
 static void make_popup_text(void *data, Evas_Object *obj, void *event_info) {
 
 	appdata_s *ad = data;
@@ -58,16 +92,17 @@ static void make_popup_text(void *data, Evas_Object *obj, void *event_info) {
 	evas_object_show(ad->popup);
 	ad->popupNum = 1;
 }
+
 static void make_popup_text_1button(void *data, Evas_Object *obj,
 		void *event_info) {
 	Evas_Object *btn;
 	appdata_s *ad = data;
-	ad->popup = elm_popup_add(ad->grid);
+	ad->popup = elm_popup_add(ad->win);
 	elm_popup_align_set(ad->popup, ELM_NOTIFY_ALIGN_FILL, 1.0);
 	evas_object_smart_callback_add(ad->popup, "block,clicked",
 			popup_block_clicked, ad);
 	evas_object_size_hint_weight_set(ad->popup, EVAS_HINT_EXPAND,
-			EVAS_HINT_EXPAND);
+	EVAS_HINT_EXPAND);
 	elm_object_text_set(ad->popup, "1Button popup");
 	btn = elm_button_add(ad->popup);
 	elm_object_text_set(btn, "OK");
@@ -78,9 +113,62 @@ static void make_popup_text_1button(void *data, Evas_Object *obj,
 }
 static void make_popup_text_3button(void *data, Evas_Object *obj,
 		void *event_info) {
+
+	Evas_Object *btn;
+	appdata_s *ad = data;
+	ad->popup = elm_popup_add(ad->conform);
+	elm_popup_align_set(ad->popup, ELM_NOTIFY_ALIGN_FILL, 1.0);
+	evas_object_smart_callback_add(ad->popup, "block,clicked",
+			popup_block_clicked, ad);
+	evas_object_size_hint_weight_set(ad->popup, EVAS_HINT_EXPAND,
+	EVAS_HINT_EXPAND);
+	elm_object_text_set(ad->popup, "3Button popup");
+
+	btn = elm_button_add(ad->popup);
+	elm_object_text_set(btn, "OK");
+	elm_object_part_content_set(ad->popup, "button1", btn);
+	evas_object_smart_callback_add(btn, "clicked", popup_btn1_clicked, ad);
+	btn = elm_button_add(ad->popup);
+	elm_object_text_set(btn, "Cancel");
+	elm_object_part_content_set(ad->popup, "button2", btn);
+	evas_object_smart_callback_add(btn, "clicked", popup_btn2_clicked, ad);
+	btn = elm_button_add(ad->popup);
+	elm_object_text_set(btn, "Close");
+	elm_object_part_content_set(ad->popup, "button3", btn);
+	evas_object_smart_callback_add(btn, "clicked", popup_btn3_clicked, ad);
+	evas_object_show(ad->popup);
+	ad->popupNum = 3;
+
 }
 static void make_popup_input_text(void *data, Evas_Object *obj,
 		void *event_info) {
+
+	Evas_Object *btn;
+	appdata_s *ad = data;
+	Evas_Object *entry;
+	ad->popup = elm_popup_add(ad->box);
+	elm_popup_align_set(ad->popup, ELM_NOTIFY_ALIGN_FILL, 1.0);
+	evas_object_smart_callback_add(ad->popup, "block,clicked",
+			popup_block_clicked, ad);
+	evas_object_size_hint_weight_set(ad->popup, EVAS_HINT_EXPAND,
+	EVAS_HINT_EXPAND);
+	elm_object_part_text_set(ad->popup, "title,text", "Input Text");
+	entry = elm_entry_add(ad->popup);
+	evas_object_size_hint_weight_set(entry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(entry, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	elm_object_part_content_set(ad->popup, "elm.swallow.content", entry);
+	evas_object_show(entry);
+	ad->entry = entry; /* OK button */
+	btn = elm_button_add(ad->popup);
+	elm_object_text_set(btn, "OK");
+	elm_object_part_content_set(ad->popup, "button1", btn);
+	evas_object_smart_callback_add(btn, "clicked", popup_btn1_clicked, ad); /* Cancel button */
+	btn = elm_button_add(ad->popup);
+	elm_object_text_set(btn, "Cancel");
+	elm_object_part_content_set(ad->popup, "button2", btn);
+	evas_object_smart_callback_add(btn, "clicked", popup_btn2_clicked, ad);
+	evas_object_show(ad->popup);
+	ad->popupNum = 4;
 }
 
 static void create_base_gui(appdata_s *ad) {

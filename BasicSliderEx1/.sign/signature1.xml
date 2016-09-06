@@ -4,19 +4,19 @@
 <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></SignatureMethod>
 <Reference URI="author-signature.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>WHWLVisEFwWgY0dB7p3wU/+4VXQWvXDlvfqlc9NFiQ4=</DigestValue>
+<DigestValue>BE9aWZ7o5aPqY+k/+jfZlu40P22LIHWUryGjgACjUL8=</DigestValue>
 </Reference>
-<Reference URI="bin%2Fbasicpopupex1">
+<Reference URI="bin%2Fbasicsliderex1">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>HD5vwXojMH+MfiN28eiKxtmf37q/FuyBaJWRpREFrY0=</DigestValue>
+<DigestValue>cwseXobVW31U4An10YwVx4La3sPcuvAY6VZdiC9r6Hs=</DigestValue>
 </Reference>
-<Reference URI="shared%2Fres%2Fbasicpopupex1.png">
+<Reference URI="shared%2Fres%2Fbasicsliderex1.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>1d0oEZHqPn+QzNzGIHwj9ODby6x9ggFs9uOsav6jPNs=</DigestValue>
 </Reference>
 <Reference URI="tizen-manifest.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>3xyxhHLRb/CAwdLPYbeXY4Jx9N0sz2voA7h1TYizc/0=</DigestValue>
+<DigestValue>4Kcg4f3O3LVN+ouNcsGX2SpcmzMZOz7NM5XSspcr0Ew=</DigestValue>
 </Reference>
 <Reference URI="#prop">
 <Transforms>
@@ -27,11 +27,11 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-Pa1F9IFD8+xog0cp+L3vJA4jw5ueuEl1pGA87dsxQ8x5livpDxz47IN5zu3kGlHsdnn0UsPsL9NB
-xSis+SH9AYYVEmHx+SxPRuiSrxi74EOpxdO/qmZ48Uq0ShzDdZb05M04V9wl2+EHW0o7ZRoYNu+5
-9MZ3KyZSQDqLOx0DALcLNp54Gd7JKzTlKjiF9oNrb8Cg7PL9ptUvN2SJvWBUAZgOxjG1Qjsjzliq
-+BZ6yCEZbKD1q76rT7O1tN+qGgAhJg/xVp2Yk68JFKI+skIcAL5xc9Lldcs9RP+gMy4zWtZ/70bT
-+keDNZIyvdZcttL3/gTWPULx5TD7dltSrIT4vg==
+giACGX9S16cXU2/RCoG+Axe2qH39Ta5OQox9Qf/xkZXsKQp3NHjAd3Omcj3EdJwt72w99sEBrHO+
+bGWpL/Hp9bu4CDWeJQRM5c05LpnARvKGfgxJuVmQaqVX6AsTiq/snXQipUinWTDAxULwoKiz0Kh7
+GAMjNgtD2dwgr9eLQmSK+orOIqVRRqYnzxf8kqqc2w3fzy1bH6l3IWJZ+ePND8F8UP+sgs0OhdVE
+favLNrxroGVkbAw5W193tQ8QGSibg4mnbD1AR87Uc0U83BaNx/JZJ8QQMKxSyBkE6WwPAnAV41BU
+L1rFlfscl0LzMPOWfS0CopVRpDZMGBrOgtHXGQ==
 </SignatureValue>
 <KeyInfo>
 <X509Data>
