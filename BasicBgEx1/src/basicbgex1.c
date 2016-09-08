@@ -18,6 +18,7 @@ static void my_table_pack(Evas_Object *table, Evas_Object *child, int x, int y,
 	elm_table_pack(table, child, x, y, w, h);
 	evas_object_show(child);
 }
+
 static void app_get_resource(const char *res_file_in, char *res_path_out,
 		int res_path_max) {
 	char *res_path = app_get_resource_path();
