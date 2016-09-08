@@ -4,19 +4,19 @@
 <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></SignatureMethod>
 <Reference URI="author-signature.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>nqI2at9WYKkymWCv/841HQvC/TvN1DaJnIdNV49ZKOE=</DigestValue>
+<DigestValue>5eh0TlqI4uqI/OvxXBGeAX91ru4M0jXRYFUhTGsX1Qo=</DigestValue>
 </Reference>
-<Reference URI="bin%2Fbasicnaviframeex1">
+<Reference URI="bin%2Fbasicboxex1">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>4RzCaUMa7lbpChErejmbzpbgPp+QR3ognnEOAkKEboc=</DigestValue>
+<DigestValue>UfErW2q/ltjP2IlKiN+jUslAp66X6Ah+BJm9jZSrwAk=</DigestValue>
 </Reference>
-<Reference URI="shared%2Fres%2Fbasicnaviframeex1.png">
+<Reference URI="shared%2Fres%2Fbasicboxex1.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>1d0oEZHqPn+QzNzGIHwj9ODby6x9ggFs9uOsav6jPNs=</DigestValue>
 </Reference>
 <Reference URI="tizen-manifest.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>UNbUmMVVVknQUanIh8jQlWC/qQbBdMmzwOSzLh28Ftc=</DigestValue>
+<DigestValue>kW94+fBBNUf0rBU6f/4YI5Gdub3UMvHku6C34JNVgFI=</DigestValue>
 </Reference>
 <Reference URI="#prop">
 <Transforms>
@@ -27,11 +27,11 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-CnIsqmz2Dx+aykUI/nSTiYm1juip0hd6RlCK+EBgEGMviKV5ErLYl5mZfOlBuYD2UyAFoyGm+lZM
-3/Q6E5qhaKakj2nO1T7qGXIjXtMQOvg87/ayHtsUSAjgchLzFsk0wKSAu0DTX47Qy0JZjB8v44eJ
-jw3D84NwqQmzZlIthuXosNnoZDLbTCME+thrOY0B+dWVJ8iGjQuHQqV1kL7Bin5az8mpIBMd/5x7
-tYjV/ODpGOFcU74r1qdKc8eu1Gzrv5EuOEiyzrHmM4x0dUhZhaEiewv1FU1Ba1Inw9YNLcSzGJFC
-eZ1Rln7U5ftp3jk7mOwlGtTnzzNxQllisxbBfQ==
+mW5lcJtwn94De5OzlP4LZ/O5h3Kqz/21hOq0eBdgtgEDi8F8K5UIoNDWhqWJN9Kv7U27vvNcUP91
+tbn0WlgWe0SxXa2X7VTs36vejn/ql5rReFcr54EB6kp3ZkWbvyTOMXYz0WvsxpSvSFtWjD4wEEZe
+YpRKtBcciIBG3mZT06xkkwAlamAei98nX3O2ObOHzdHIX8rBMkcS+DJziQXVsxsKWQvv1b1cWIto
+hAkkjfF18iA9wIPwttjMfqbTjLvOMEqi/Kkxl86VYgQL0ioDDp5zl7/UFZpZNdE82zxdwg8Ww9iJ
+YxTuBamJb94nqoEjbS1BycEyOqbS7wrywq1Dgw==
 </SignatureValue>
 <KeyInfo>
 <X509Data>
