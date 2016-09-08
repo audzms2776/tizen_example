@@ -1,11 +1,11 @@
-#include "basicwebviewex1.h"
-#include <EWebKit.h>
+#include "basictabex1.h"
+
 typedef struct appdata {
 	Evas_Object *win;
 	Evas_Object *conform;
 	Evas_Object *label;
-	Evas_Object *entry;
-	Evas_Object *web_view;
+	Evas_Object *box1;
+	Evas_Object *box2;
 } appdata_s;
 
 static void win_delete_request_cb(void *data, Evas_Object *obj,
@@ -19,6 +19,15 @@ static void win_back_cb(void *data, Evas_Object *obj, void *event_info) {
 	elm_win_lower(ad->win);
 }
 
+static void my_box_pack(Evas_Object *box, Evas_Object *child, double h_weight,
+		double v_weight, double h_align, double v_align) {
+
+	evas_object_size_hint_weight_set(child, h_weight, v_weight);
+	evas_object_size_hint_align_set(child, h_align, v_align);
+	evas_object_show(child);
+	elm_box_pack_end(box, child);
+}
+
 static void my_table_pack(Evas_Object *table, Evas_Object *child, int x, int y,
 		int w, int h) {
 	evas_object_size_hint_align_set(child, EVAS_HINT_FILL, EVAS_HINT_FILL);
@@ -27,19 +36,16 @@ static void my_table_pack(Evas_Object *table, Evas_Object *child, int x, int y,
 	evas_object_show(child);
 }
 
-static void btn_go_cb(void *data, Evas_Object *obj, void *event_info) {
-	appdata_s* ad = data;
-	ewk_view_url_set(ad->web_view, elm_object_text_get(ad->entry));
+static void btn_tab1_cb(void *data, Evas_Object *obj, void *event_info) {
+	appdata_s *ad = data;
+	evas_object_show(ad->box1);
+	evas_object_hide(ad->box2);
 }
-static void btn_prev_cb(void *data, Evas_Object *obj, void *event_info) {
-	appdata_s* ad = data;
-	if (ewk_view_back_possible(ad->web_view) == EINA_TRUE)
-		ewk_view_back(ad->web_view);
-}
-static void btn_next_cb(void *data, Evas_Object *obj, void *event_info) {
-	appdata_s* ad = data;
-	if (ewk_view_forward_possible(ad->web_view) == EINA_TRUE)
-		ewk_view_forward(ad->web_view);
+
+static void btn_tab2_cb(void *data, Evas_Object *obj, void *event_info) {
+	appdata_s *ad = data;
+	evas_object_hide(ad->box1);
+	evas_object_show(ad->box2);
 }
 
 static void create_base_gui(appdata_s *ad) {
@@ -67,40 +73,50 @@ static void create_base_gui(appdata_s *ad) {
 	{
 		Evas_Object *table = elm_table_add(ad->win); /* Make table homogenous - every cell will be the same size */
 		elm_table_homogeneous_set(table, EINA_TRUE);
-
+		elm_table_padding_set(table, 5 * elm_config_scale_get(),
+				5 * elm_config_scale_get());
 		evas_object_size_hint_weight_set(table, EVAS_HINT_EXPAND,
 		EVAS_HINT_EXPAND);
 		elm_win_resize_object_add(ad->win, table);
+		elm_box_pack_end(box, table);
 		evas_object_show(table);
 		{
-			ad->entry = elm_entry_add(ad->win);
-			elm_entry_scrollable_set(ad->entry, EINA_TRUE);
-			eext_entry_selection_back_event_allow_set(ad->entry, EINA_TRUE);
-			elm_object_text_set(ad->entry, "http://www.tizen.org");
-			my_table_pack(table, ad->entry, 0, 0, 3, 1);
-
 			Evas_Object *btn = elm_button_add(ad->win);
-			elm_object_text_set(btn, "Prev");
-			evas_object_smart_callback_add(btn, "clicked", btn_prev_cb, ad);
-			my_table_pack(table, btn, 0, 1, 1, 1);
+			elm_object_text_set(btn, "Tab-1");
+			evas_object_smart_callback_add(btn, "clicked", btn_tab1_cb, ad);
+			my_table_pack(table, btn, 0, 5, 1, 1);
 
 			btn = elm_button_add(ad->win);
-			elm_object_text_set(btn, "Go");
-			evas_object_smart_callback_add(btn, "clicked", btn_go_cb, ad);
-			my_table_pack(table, btn, 1, 1, 1, 1);
+			elm_object_text_set(btn, "Tab-2");
+			evas_object_smart_callback_add(btn, "clicked", btn_tab2_cb, ad);
+			my_table_pack(table, btn, 1, 5, 1, 1);
 
-			btn = elm_button_add(ad->win);
-			elm_object_text_set(btn, "Next");
-			evas_object_smart_callback_add(btn, "clicked", btn_next_cb, ad);
-			my_table_pack(table, btn, 2, 1, 1, 1);
+			Evas_Object *layout1 = elm_layout_add(ad->win);
+			elm_layout_theme_set(layout1, "layout", "drawer", "panel");
+			my_table_pack(table, layout1, 0, 0, 2, 5);
+			ad->box1 = elm_box_add(layout1);
+			elm_win_resize_object_add(ad->win, ad->box1);
+			evas_object_show(ad->box1);
+			{
+				ad->label = elm_label_add(layout1);
+				elm_object_text_set(ad->label, "Tab-1");
+				my_box_pack(ad->box1, ad->label, 1.0, 0.0, -1.0, 0.5);
+			}
 
-			/* WebView */
-			Evas *evas = evas_object_evas_get(ad->win);
-			ad->web_view = ewk_view_add(evas);
-			ewk_view_url_set(ad->web_view, elm_object_text_get(ad->entry));
-			my_table_pack(table, ad->web_view, 0, 2, 3, 8);
+			Evas_Object *layout2 = elm_layout_add(ad->win);
+			elm_layout_theme_set(layout2, "layout", "drawer", "panel");
+			my_table_pack(table, layout2, 0, 0, 2, 5);
+			ad->box2 = elm_box_add(layout2);
+			elm_win_resize_object_add(ad->win, ad->box2);
+			evas_object_hide(ad->box2);
+			{
+				btn = elm_button_add(layout2);
+				elm_object_text_set(btn, "Tab-2");
+				my_box_pack(ad->box2, btn, 1.0, 0.0, -1.0, 0.5);
+			}
 		}
 	}
+
 	evas_object_show(ad->win);
 }
 

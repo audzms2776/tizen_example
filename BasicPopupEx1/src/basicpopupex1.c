@@ -27,7 +27,9 @@ static void my_box_pack(Evas_Object *box, Evas_Object *child, double h_weight,
 	evas_object_size_hint_weight_set(child, h_weight, v_weight);
 	evas_object_size_hint_align_set(child, h_align, v_align);
 	evas_object_show(child);
+	elm_object_content_set(box, child);
 	elm_box_pack_end(box, child);
+	evas_object_show(box);
 }
 
 static void popup_timeout(void *data, Evas_Object *obj, void *event_info) {
@@ -58,10 +60,9 @@ static void popup_btn1_clicked(void *data, Evas_Object *obj, void *event_info) {
 		elm_object_text_set(ad->label, "Popup 1 Button Clicked");
 	}
 
-
 	evas_object_del(ad->popup);
 	ad->popup = NULL;
-	 ad->entry = NULL;
+	ad->entry = NULL;
 }
 
 static void popup_btn2_clicked(void *data, Evas_Object *obj, void *event_info) {
@@ -204,6 +205,8 @@ static void create_base_gui(appdata_s *ad) {
 	ad->box = elm_box_add(ad->win);
 	evas_object_size_hint_weight_set(ad->box, EVAS_HINT_EXPAND,
 	EVAS_HINT_EXPAND);
+	elm_box_padding_set(ad->box, 5 * elm_config_scale_get(),
+			5 * elm_config_scale_get());
 	elm_object_content_set(ad->conform, ad->box);
 	evas_object_show(ad->box);
 

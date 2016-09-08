@@ -1,11 +1,16 @@
-#include "basicwebviewex1.h"
-#include <EWebKit.h>
+#include "basicnaviframeex1.h"
+
 typedef struct appdata {
 	Evas_Object *win;
 	Evas_Object *conform;
 	Evas_Object *label;
-	Evas_Object *entry;
-	Evas_Object *web_view;
+	Evas_Object *nf;
+	Evas_Object *layout;
+	Elm_Object_Item *frame_item;
+	Evas_Object *toolbar;
+	Elm_Object_Item *btn1;
+	Elm_Object_Item *btn2;
+	Elm_Object_Item *btn3;
 } appdata_s;
 
 static void win_delete_request_cb(void *data, Evas_Object *obj,
@@ -19,27 +24,44 @@ static void win_back_cb(void *data, Evas_Object *obj, void *event_info) {
 	elm_win_lower(ad->win);
 }
 
-static void my_table_pack(Evas_Object *table, Evas_Object *child, int x, int y,
-		int w, int h) {
-	evas_object_size_hint_align_set(child, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_size_hint_weight_set(child, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	elm_table_pack(table, child, x, y, w, h);
+static void my_box_pack(Evas_Object *box, Evas_Object *child, double h_weight,
+		double v_weight, double h_align, double v_align) {
+
+	evas_object_size_hint_weight_set(child, h_weight, v_weight);
+	evas_object_size_hint_align_set(child, h_align, v_align);
 	evas_object_show(child);
+	elm_object_content_set(box, child);
+	elm_box_pack_end(box, child);
+	evas_object_show(box);
 }
 
-static void btn_go_cb(void *data, Evas_Object *obj, void *event_info) {
-	appdata_s* ad = data;
-	ewk_view_url_set(ad->web_view, elm_object_text_get(ad->entry));
+static void on_btn1_cb(void *data, Evas_Object *obj, void *event_info) {
+	appdata_s *ad = (appdata_s*) data;
+	elm_object_text_set(ad->label, "Button-1 Pressed");
 }
-static void btn_prev_cb(void *data, Evas_Object *obj, void *event_info) {
-	appdata_s* ad = data;
-	if (ewk_view_back_possible(ad->web_view) == EINA_TRUE)
-		ewk_view_back(ad->web_view);
+
+static void on_btn2_cb(void *data, Evas_Object *obj, void *event_info) {
+	appdata_s *ad = (appdata_s*) data;
+	elm_object_text_set(ad->label, "Button-2 Pressed");
 }
-static void btn_next_cb(void *data, Evas_Object *obj, void *event_info) {
-	appdata_s* ad = data;
-	if (ewk_view_forward_possible(ad->web_view) == EINA_TRUE)
-		ewk_view_forward(ad->web_view);
+
+static void on_btn3_cb(void *data, Evas_Object *obj, void *event_info) {
+	appdata_s *ad = (appdata_s*) data;
+	elm_object_text_set(ad->label, "Button-3 Pressed");
+}
+
+static Evas_Object *toolbar_add(appdata_s *ad, Evas_Object *parent) {
+	Evas_Object *toolbar = elm_toolbar_add(parent);
+	evas_object_show(toolbar);
+
+	elm_toolbar_select_mode_set(toolbar, ELM_OBJECT_SELECT_MODE_NONE);
+	elm_toolbar_transverse_expanded_set(toolbar, EINA_TRUE);
+
+	ad->btn1 = elm_toolbar_item_append(toolbar, NULL, "Left", on_btn1_cb, ad);
+	ad->btn2 = elm_toolbar_item_append(toolbar, NULL, "Center", on_btn2_cb, ad);
+	ad->btn3 = elm_toolbar_item_append(toolbar, NULL, "Right", on_btn3_cb, ad);
+
+	return toolbar;
 }
 
 static void create_base_gui(appdata_s *ad) {
@@ -60,47 +82,39 @@ static void create_base_gui(appdata_s *ad) {
 	eext_object_event_callback_add(ad->win, EEXT_CALLBACK_BACK, win_back_cb,
 			ad);
 
-	Evas_Object *box = elm_box_add(ad->win);
+	/* Conformant */
+	/* Create and initialize elm_conformant.
+	 elm_conformant is mandatory for base gui to have proper size
+	 when indicator or virtual keypad is visible. */
+	ad->conform = elm_conformant_add(ad->win);
+	elm_win_indicator_mode_set(ad->win, ELM_WIN_INDICATOR_SHOW);
+	elm_win_indicator_opacity_set(ad->win, ELM_WIN_INDICATOR_OPAQUE);
+	evas_object_size_hint_weight_set(ad->conform, EVAS_HINT_EXPAND,
+	EVAS_HINT_EXPAND);
+	elm_win_resize_object_add(ad->win, ad->conform);
+	evas_object_show(ad->conform);
+
+	ad->nf = elm_naviframe_add(ad->conform);
+	elm_object_part_content_set(ad->conform, "elm.swallow.content", ad->nf);
+	elm_object_content_set(ad->conform, ad->nf);
+
+	Evas_Object *box = elm_box_add(ad->conform);
 	evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	elm_win_resize_object_add(ad->win, box);
+	elm_object_content_set(ad->nf, box);
 	evas_object_show(box);
 	{
-		Evas_Object *table = elm_table_add(ad->win); /* Make table homogenous - every cell will be the same size */
-		elm_table_homogeneous_set(table, EINA_TRUE);
+		ad->label = elm_label_add(ad->conform);
+		elm_object_text_set(ad->label, "Press Toolbar Button");
+		my_box_pack(box, ad->label, 1.0, 0.0, -1.0, 0.0);
 
-		evas_object_size_hint_weight_set(table, EVAS_HINT_EXPAND,
-		EVAS_HINT_EXPAND);
-		elm_win_resize_object_add(ad->win, table);
-		evas_object_show(table);
-		{
-			ad->entry = elm_entry_add(ad->win);
-			elm_entry_scrollable_set(ad->entry, EINA_TRUE);
-			eext_entry_selection_back_event_allow_set(ad->entry, EINA_TRUE);
-			elm_object_text_set(ad->entry, "http://www.tizen.org");
-			my_table_pack(table, ad->entry, 0, 0, 3, 1);
+		ad->frame_item = elm_naviframe_item_push(ad->nf, "Naviframe Ex", NULL,
+		NULL, box, NULL);
 
-			Evas_Object *btn = elm_button_add(ad->win);
-			elm_object_text_set(btn, "Prev");
-			evas_object_smart_callback_add(btn, "clicked", btn_prev_cb, ad);
-			my_table_pack(table, btn, 0, 1, 1, 1);
-
-			btn = elm_button_add(ad->win);
-			elm_object_text_set(btn, "Go");
-			evas_object_smart_callback_add(btn, "clicked", btn_go_cb, ad);
-			my_table_pack(table, btn, 1, 1, 1, 1);
-
-			btn = elm_button_add(ad->win);
-			elm_object_text_set(btn, "Next");
-			evas_object_smart_callback_add(btn, "clicked", btn_next_cb, ad);
-			my_table_pack(table, btn, 2, 1, 1, 1);
-
-			/* WebView */
-			Evas *evas = evas_object_evas_get(ad->win);
-			ad->web_view = ewk_view_add(evas);
-			ewk_view_url_set(ad->web_view, elm_object_text_get(ad->entry));
-			my_table_pack(table, ad->web_view, 0, 2, 3, 8);
-		}
+		ad->toolbar = toolbar_add(ad, ad->nf);
+		elm_object_item_part_content_set(ad->frame_item, "toolbar",
+				ad->toolbar);
 	}
+
 	evas_object_show(ad->win);
 }
 

@@ -4,19 +4,19 @@
 <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></SignatureMethod>
 <Reference URI="author-signature.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>L0Q0gA6/bIT86WmQFfLJWe4scIFJia9leAufywy3QFc=</DigestValue>
+<DigestValue>0AAMjp8TKYgoxVrSUPNAE0du3XPCFJYGN0/IwVjWnes=</DigestValue>
 </Reference>
-<Reference URI="bin%2Fbasicpopupex1">
+<Reference URI="bin%2Fbasicwebviewex1">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>S8RHiP+S/XdVjWBKXBlrxymh5YUo0J/sp35k0vGBiDg=</DigestValue>
+<DigestValue>UUVnZqiGl9Zbp4JKxNKGM26D5/NqqY2EA70I/UBdkZ8=</DigestValue>
 </Reference>
-<Reference URI="shared%2Fres%2Fbasicpopupex1.png">
+<Reference URI="shared%2Fres%2Fbasicwebviewex1.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>1d0oEZHqPn+QzNzGIHwj9ODby6x9ggFs9uOsav6jPNs=</DigestValue>
 </Reference>
 <Reference URI="tizen-manifest.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>3xyxhHLRb/CAwdLPYbeXY4Jx9N0sz2voA7h1TYizc/0=</DigestValue>
+<DigestValue>fAC5S/U7YxH3WKptbakb+MVjn4fqKoQXsl8FWbR0vds=</DigestValue>
 </Reference>
 <Reference URI="#prop">
 <Transforms>
@@ -27,11 +27,11 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-BfdecTKrUBM4DNZIxz8AMNM0fXrDIR4EMMY1y1uMb2x3jJ+KxAqPorX4knjHLv/hvxIIGsBxTdiF
-kBvs0I0qgzYLyhKZwZPirM0IFGyKsnFhd3D1dCxc5NxL+Zk4FgSlFBtPla+NbA5wINh6nPujiaM2
-QZuMQ66EIMuYNw0gJLHh2ErDJ5q/eoei1wGvL+Xc8mtLT2N5tG7rusW764M9LAZD8eAwsavUCFyD
-GZX1bc27FzuuskfnN+846u8mu8eVULQzQSUk5hPzHsP/jtxOGIQyQrfoR4wO7mN7nitK6JfhE/Vs
-VePsRlJg9+pJpWawqOdLhNPEF11Zz4WSH776LQ==
+SD2lK2NYZJHTIoc2ICWYmXSU4agprJnP0HXWJvaJkfDJl2VzE3c2U73JsW/mof8LDtx1mtcAyohC
+glIVxH1lcjiyAQpVhxfZvdbHe6Wr4Bq7AdAAJKm0h8ninP3GYrE3hk5wXcoBhVIL+nEEM1hJu9x8
+QZUemBU+feGwDzONpdwhWIQWRArQ+LvjNAKQJCCBbvo8ELgJKR3Zn/hH4K4f2lc48EJXZhdd72x/
+lw246LLV1xw35TUR308+0zyzYvBcnzlndrVssGxTAZtX9Q3q/OVkPbjVMVVlQE8Nj+/O7xaklzgn
+RPSvZvuySERvWuOhhyZD6FmD/f6NH/BipzGGvQ==
 </SignatureValue>
 <KeyInfo>
 <X509Data>
