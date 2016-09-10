@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://tizen.org/ns/packages" api-version="2.4" package="org.example.basicgradationex1" version="1.0.0">
+	<profile name="mobile" />
+	<ui-application appid="org.example.basicgradationex1" exec="basicgradationex1" type="capp" multiple="false" taskmanage="true" nodisplay="false" launch_mode="single">
+		<icon>basicgradationex1.png</icon>
+		<label>basicgradationex1</label>
+	</ui-application>
+</manifest>

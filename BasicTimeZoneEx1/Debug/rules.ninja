@@ -3,7 +3,7 @@
 #################################################################################
 
 rule build_c
-  command = $ctool -MMD -MT $out -MF $out.d $pchInc $cflags $otherflags -c $in -o $out
+  command = $ctool -MMD -MT $out -MF $out.d $pchInc $cflags -c $in -o $out
   description = Building $out
   depfile = $out.d
   deps = gcc
@@ -17,7 +17,7 @@ rule build_long_c
   rspfile_content = $pchInc $cflags
 
 rule build_cpp
-  command = $cpptool -MMD -MT $out -MF $out.d $pchInc $cppflags $otherflags -c $in -o $out
+  command = $cpptool -MMD -MT $out -MF $out.d $pchInc $cppflags -c $in -o $out
   description = Building $out
   depfile = $out.d
 
@@ -33,10 +33,10 @@ rule build_long_cpp
 #################################################################################
 
 rule build_target
-  command = $targettool -o $out $in $userobj $libs $targetflags $otherflags
+  command = $targettool -o $out $in $userobj $libs $targetflags
   description = Linking $out
 
-rule build_long_target
+rule long_build_target
   command = $targettool -o $out @$out.rsp
   description = Linking $out
   rspfile = $out.rsp
@@ -262,19 +262,6 @@ rule build_long_cpp_fast_sa
   deps = ast
 
 #################################################################################
-# Coverage Rules
-#################################################################################
-
-rule build_cov
-  command = llvm-cov show $binaryName -instr-profile=coverage.profdata $in -outfile=$out
-  description = Generating coverage file $out
-
-rule cov_report
-  command = llvm-cov report $binaryName -tizen-cov -instr-profile=coverage.profdata ../src/* -outfile=$coveragedir/report.txt
-  description = Generating coverage report $out
-
-
-#################################################################################
 # Clean Rules
 #################################################################################
 
@@ -286,14 +273,7 @@ build clean: clean_all || clean_sa
 rule sa_report_clean
   command = rm -rf $sareportdir/*.xml rm -rf $sareportdir/src
   description = Cleaning SA Report files ..
-
 build clean_sa: sa_report_clean
-
-rule cov_report_clean
-  command = rm -rf $coveragedir/src rm -rf $coveragedir/report.txt
-  description = Cleaning Coverage Reports..
-
-build clean_cov: cov_report_clean
 
 #################################################################################
 # Compilation DB Step
