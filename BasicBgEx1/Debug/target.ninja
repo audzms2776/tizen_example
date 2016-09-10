@@ -2,3 +2,4 @@ build main_build: phony basicbgex1
 build all: phony main_build
 default all
 edje-cc-options = -deps
+binaryName = basicbgex1

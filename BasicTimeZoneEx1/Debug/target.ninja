@@ -1,0 +1,5 @@
+build main_build: phony basictimezoneex1
+build all: phony main_build
+default all
+edje-cc-options = -deps
+binaryName = basictimezoneex1

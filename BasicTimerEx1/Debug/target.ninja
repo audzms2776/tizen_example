@@ -1,0 +1,5 @@
+build main_build: phony basictimerex1
+build all: phony main_build
+default all
+edje-cc-options = -deps
+binaryName = basictimerex1
