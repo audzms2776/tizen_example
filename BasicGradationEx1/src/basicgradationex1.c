@@ -20,6 +20,7 @@ win_back_cb(void *data, Evas_Object *obj, void *event_info)
 	/* Let window go to hide state. */
 	elm_win_lower(ad->win);
 }
+
 static Evas_Object * create_gradient_rect(appdata_s *ad) {     /* Generate gradient data on the fly */     const int colors[2][4] = {             /* red to blue */             { 255, 0, 0, 255 }, { 0, 0, 255, 255 },     };
     const int b_r = colors[0][0], b_g = colors[0][1], b_b = colors[0][2], b_a =
 			colors[0][3];
@@ -48,6 +49,7 @@ static Evas_Object * create_gradient_rect(appdata_s *ad) {     /* Generate gradi
 	evas_object_show(img);
 	return img;
 }
+
 static void
 create_base_gui(appdata_s *ad)
 {
@@ -75,14 +77,14 @@ create_base_gui(appdata_s *ad)
 	evas_object_size_hint_weight_set(ad->conform, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	elm_win_resize_object_add(ad->win, ad->conform);
 	evas_object_show(ad->conform);
-
-	/* Label */
-	/* Create an actual view of the base gui.
-	   Modify this part to change the view. */
-	ad->label = elm_label_add(ad->conform);
-	elm_object_text_set(ad->label, "<align=center>Hello Tizen</align>");
-	evas_object_size_hint_weight_set(ad->label, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	elm_object_content_set(ad->conform, ad->label);
+	Evas_Object *box = elm_box_add(ad->conform);
+	elm_box_padding_set(box, ELM_SCALE_SIZE(10), ELM_SCALE_SIZE(10));
+	elm_object_content_set(ad->conform, box);
+	evas_object_show(box);
+	{
+		ad->imgs[0] = create_gradient_rect(ad);
+		elm_box_pack_end(box, ad->imgs[0]);
+	}
 
 	/* Show window after base gui is set up */
 	evas_object_show(ad->win);
