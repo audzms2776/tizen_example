@@ -1,22 +1,15 @@
-#include "basicscrollersubex1.h"
+#include "basicscrollerex1.h"
 
 typedef struct appdata {
 	Evas_Object *win;
 	Evas_Object *conform;
 	Evas_Object *label;
-	Evas_Object *nf;
 } appdata_s;
 
 static void win_delete_request_cb(void *data, Evas_Object *obj,
 		void *event_info) {
 	ui_app_exit();
 }
-
-//static void win_back_cb(void *data, Evas_Object *obj, void *event_info) {
-//	appdata_s *ad = data;
-	/* Let window go to hide state. */
-//	elm_win_lower(ad->win);
-//}
 
 static void my_box_pack(Evas_Object *box, Evas_Object *child, double h_weight,
 		double v_weight, double h_align, double v_align) {
@@ -27,9 +20,27 @@ static void my_box_pack(Evas_Object *box, Evas_Object *child, double h_weight,
 	elm_box_pack_end(box, child);
 }
 
-static Eina_Bool naviframe_pop_cb(void *data, Elm_Object_Item *it) {
-	ui_app_exit();
-	return EINA_FALSE;
+static void win_back_cb(void *data, Evas_Object *obj, void *event_info) {
+	appdata_s *ad = data;
+	/* Let window go to hide state. */
+	elm_win_lower(ad->win);
+}
+
+static void app_get_resource(const char *res_file_in, char *res_path_out,
+		int res_path_max) {
+	char *res_path = app_get_resource_path();
+	if (res_path) {
+		snprintf(res_path_out, res_path_max, "%s%s", res_path, res_file_in);
+		free(res_path);
+	}
+}
+
+static Evas_Object* create_image(Evas_Object *parent) {
+	char img_path[PATH_MAX] = { 0, };
+	app_get_resource("9.png", img_path, PATH_MAX);
+	Evas_Object *img = elm_image_add(parent);
+	elm_image_file_set(img, img_path, NULL);
+	return img;
 }
 
 static void create_base_gui(appdata_s *ad) {
@@ -47,8 +58,8 @@ static void create_base_gui(appdata_s *ad) {
 
 	evas_object_smart_callback_add(ad->win, "delete,request",
 			win_delete_request_cb, NULL);
-//	eext_object_event_callback_add(ad->win, EEXT_CALLBACK_BACK, win_back_cb,
-//			ad);
+	eext_object_event_callback_add(ad->win, EEXT_CALLBACK_BACK, win_back_cb,
+			ad);
 
 	/* Conformant */
 	/* Create and initialize elm_conformant.
@@ -62,34 +73,19 @@ static void create_base_gui(appdata_s *ad) {
 	elm_win_resize_object_add(ad->win, ad->conform);
 	evas_object_show(ad->conform);
 
-	ad->nf = elm_naviframe_add(ad->conform);
-	elm_object_part_content_set(ad->conform, "elm.swallow.content", ad->nf);
-	elm_object_content_set(ad->conform, ad->nf);
+	Evas_Object *scroller;
 
-	Evas_Object *box = elm_box_add(ad->nf);
-	elm_box_padding_set(box, 10 * elm_config_scale_get(),
-			10 * elm_config_scale_get());
-	evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	elm_object_content_set(ad->nf, box);
-	evas_object_show(box);
-	{
-		ad->label = elm_label_add(ad->conform);
-		elm_object_text_set(ad->label, "Press Button");
-		my_box_pack(box, ad->label, 1.0, 0.0, -1.0, 0.0);
+	scroller = elm_scroller_add(ad->win);
 
-		Evas_Object *btn = elm_button_add(ad->conform);
-		elm_object_text_set(btn, "Sub Window");
-		evas_object_smart_callback_add(btn, "clicked", sub_view_cb, ad->nf);
-		my_box_pack(box, btn, 1.0, 0.0, -1.0, 0.0);
+	Evas_Object* btn = elm_button_add(ad->win);
+	evas_object_size_hint_weight_set(btn, EVAS_HINT_EXPAND,
+	EVAS_HINT_EXPAND);
+	evas_object_show(btn);
+	elm_object_content_set(scroller, btn);
 
-		Elm_Object_Item *nf_it;
-		nf_it = elm_naviframe_item_push(ad->nf, "Main Window", NULL, NULL, box,
-		NULL);
-		eext_object_event_callback_add(ad->nf, EEXT_CALLBACK_BACK,
-				eext_naviframe_back_cb, NULL);
-		elm_naviframe_item_pop_cb_set(nf_it, naviframe_pop_cb, ad->win);
-	}
+	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
 
+	/* Show window after base gui is set up */
 	evas_object_show(ad->win);
 }
 

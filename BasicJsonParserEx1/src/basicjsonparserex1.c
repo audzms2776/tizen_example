@@ -30,7 +30,7 @@ static void parse_json(appdata_s *ad) {
 		JsonArray *temp_array = json_node_get_array(root);
 
 		for (int i = 0; i < json_array_get_length(temp_array); i++) {
-			sprintf(buf, "%s - %d", buf,
+			sprintf(buf, "%s - %lld", buf,
 					json_array_get_int_element(temp_array, i));
 		}
 
@@ -71,7 +71,7 @@ static void parse_json(appdata_s *ad) {
 		temp_node = json_array_get_element(temp_array, 0);
 		temp_object = json_node_get_object(temp_node);
 
-		sprintf(buf, "%s <br/> weather:id - %d", buf,
+		sprintf(buf, "%s <br/> weather:id - %lld", buf,
 				json_object_get_int_member(temp_object, "id"));
 	}
 
